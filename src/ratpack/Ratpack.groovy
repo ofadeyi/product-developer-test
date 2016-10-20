@@ -1,10 +1,22 @@
+import com.whitbread.config.ServiceConfig
 import static ratpack.groovy.Groovy.ratpack
 
 ratpack {
-  bindings {
+    serverConfig {
+        yaml "application.yaml"
+        sysProps()
+        env()
+    }
+
+    bindings {
+        bindInstance(ServiceConfig, serverConfig.get('/service', ServiceConfig))
 
   }
 
-  handlers {
-  }
+    handlers {
+        get { ServiceConfig config ->
+            render "Welcome to ${config.message}"
+        }
+
+    }
 }
