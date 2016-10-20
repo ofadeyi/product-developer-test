@@ -1,3 +1,4 @@
+import com.whitbread.config.FoursquareConfig
 import com.whitbread.config.ServiceConfig
 import com.whitbread.database.CouchbaseConfig
 import com.whitbread.database.CouchbaseModule
@@ -13,6 +14,7 @@ ratpack {
 
     bindings {
         bindInstance(ServiceConfig, serverConfig.get('/service', ServiceConfig))
+        bindInstance(FoursquareConfig, serverConfig.get('/foursquare', FoursquareConfig))
 
         moduleConfig(CouchbaseModule, serverConfig.get('/couchbase', CouchbaseConfig))
   }
@@ -24,6 +26,13 @@ ratpack {
 
         prefix('config') {
             path('couchbase') { CouchbaseConfig config ->
+                byMethod {
+                    get {
+                        render json(config)
+                    }
+                }
+            }
+            path('foursquare') { FoursquareConfig config ->
                 byMethod {
                     get {
                         render json(config)
