@@ -17,6 +17,9 @@ repositories {
 }
 
 dependencies {
+
+    // Ratpack modules
+    compile ratpack.dependency("rx")
  // Couchbase Java Client
     compile "com.couchbase.client:java-client:$couchbaseClientVersion"
 
