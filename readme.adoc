@@ -1,0 +1,77 @@
+= Whitbread Product Developer Test
+
+== Introduction
+Readme for how to run the developer test
+
+== Languages and Frameworks
+This section lists all the languaegs, frameworks and other technologies used:
+
+. link:http://www.groovy-lang.org[Apache Groovy]: A optionally typed and dynamic language on the JVM
+. link:https://ratpack.io/[Ratpack]: A set of Java libraries for building modern HTTP applications
+. link:http://www.couchbase.com/[Couchbase]: A document database with a SQL-based query language that is engineered to deliver performance at scale.
+. link:https://www.docker.com/[Docker]: A software containerization platform
+. link:http://spockframework.org/spock/docs/1.0/index.html[Spock]:  A testing and specification framework for Java and Groovy applications.
+. link:http://sdkman.io/[SDKMAN]: A tool for managing parallel versions of multiple Software Development Kits
+. link:https://github.com/pledbrook/lazybones[Lazybones]: A project creation tool
+. link:http://testcontainers.viewdocs.io/testcontainers-java/[TestContainers]: A Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+
+
+== How to run the service (for testing and demo running)
+The section below list how to setup and run the service
+
+NOTE: Docker is required to run this service
+
+. Add you Foursquare CLIENT_ID and CLIENT_SECRET to the following file
++
+....
+src/ratpack/application.yaml
+....
+
+. Build and start the docker envinronment (silently)
++
+....
+docker-compose up --build -d
+....
+. Open your browser an navigate to couchbase and login (only for demo u:admin p:password)
++
+....
+ link:http://localhost:8091/ui/index.html[]
+....
+. Run tests (Skip this if running a mini demo)
++
+....
+gradle test
+....
+In the couchbase browser console you can navigate to link:http://localhost:8091/ui/index.html#/buckets[Buckets]
+There should be the *_default_* bucket with at least 1 document (for *heathrow* created during the _gradle test_ run)
+. Using your favourite Rest Client (cURl, httpie, DHC, Postman, etc) Search for places by sending a GET request to
++
+....
+http://localhost:5050/api/places/search?q=<put in a location>
+....
++
+The service will first try to find if a place document for that location is present inside couchbase if so it will
+retrieve it uses the _latitude_ and _longitude_ defined in the document to request a more "accurate" api call to Foursquare.
+If the location is not present in bucket a request is sent to Foursquare to using the *near* query parameter.
+
+. Create a new place by POSTing to the provided sample JSON payload the Places resources link:localhost:5050/api/places[]
+and adding *Content-Type:application/json* to the header (for content negotiation (even though at the moment the service
+only speaks json)
++
+....
+{"name":"stansted", "latitude": 51.9, "longitude": 0.2}
+....
++
+Successive search for _stansted_ will use the geolocation points to give a more accurate result
+. Teardown the docker envinronment
++
+....
+docker-compose down && docker rmi productdevelopertest_cb
+....
+
+== References
+This section lists all the Github repositories used as references
+
+. link:https://github.com/ratpack/example-books[]
+. link:https://github.com/arun-gupta/docker-images[]
+. link:https://github.com/ldoguin/couchbase-test-docker[]
