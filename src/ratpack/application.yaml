@@ -1,0 +1,15 @@
+service:
+  message: Whitbread Product Developer Test
+
+couchbase:
+  seedNodes:
+    - "localhost"
+  bucketName: default
+  bucketPassword:
+
+foursquare:
+  host: https://api.foursquare.com
+  exploreEndpoint: v2/venues/explore
+  version: 20140806
+  clientId: <change me>
+  clientSecret: <change me>
