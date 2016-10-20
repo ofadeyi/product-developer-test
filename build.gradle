@@ -20,8 +20,12 @@ dependencies {
 
     // Ratpack modules
     compile ratpack.dependency("rx")
- // Couchbase Java Client
+    compile ratpack.dependency("hystrix")
+    compile ratpack.dependency("remote")
+
+    // Couchbase Java Client
     compile "com.couchbase.client:java-client:$couchbaseClientVersion"
+    compile "org.testcontainers:testcontainers:$testcontainersVersion"
 
     // Default SLF4J binding.  Note that this is a blocking implementation.
     // See here for a non blocking appender http://logging.apache.org/log4j/2.x/manual/async.html
