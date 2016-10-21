@@ -21,18 +21,18 @@ The section below list how to setup and run the service
 
 NOTE: Docker is required to run this service
 
-. Add you Foursquare CLIENT_ID and CLIENT_SECRET to the following file
+. Add your Foursquare CLIENT_ID and CLIENT_SECRET to the following file
 +
 ....
 src/ratpack/application.yaml
 ....
 
-. Build and start the docker envinronment (silently)
+. Build and start the docker environment (silently)
 +
 ....
 docker-compose up --build -d
 ....
-. Open your browser an navigate to couchbase and login (only for demo u:admin p:password)
+. Open your browser and navigate to couchbase and login (only for demo u:admin p:password)
 +
 ....
  link:http://localhost:8091/ui/index.html[]
