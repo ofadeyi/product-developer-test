@@ -70,8 +70,10 @@ docker-compose down && docker rmi productdevelopertest_cb
 ....
 
 == References
-This section lists all the Github repositories used as references
+This section lists all the references used (books, code repositories, blogs, etc...)
 
+. link:https://www.safaribooksonline.com/library/view/learning-ratpack/9781491921654/[Leaning Ratpack]
+. link:https://github.com/danveloper/learningratpack-code[]
 . link:https://github.com/ratpack/example-books[]
 . link:https://github.com/arun-gupta/docker-images[]
 . link:https://github.com/ldoguin/couchbase-test-docker[]
